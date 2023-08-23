@@ -1,37 +1,32 @@
 #include "main.h"
 
 /**
-  * rot13 -  function that encodes a string using rot13.
-  * @str: target string
+  * rot13 - function to encode string using rot13
+  * @s: target string
   * Return: encoded string
   */
-
-char *rot13(char *str)
+char *rot13(char *s)
 {
-	int i, j;
+	int i;
 
-	char alphabet[52] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
-				'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-				'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-				'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-				'w', 'x', 'y', 'z'};
-
-	char rot13key[52] = {'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-				'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
-				'L', 'M', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
-				'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-				'j', 'k', 'l', 'm'};
-
-	while (str[++i])
+	i = 0;
+	while (s[i] != 0)
 	{
-		for (j = 0; j < 52; j++)
+		if ((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z'))
 		{
-			if (str[i] == alphabet[j])
+			while ((s[i] >= 'A' && s[i] < 'N') || (s[i] >= 'a' && s[i] < 'n'))
 			{
-				str[i] = rot13key[j];
-				break;
+				s[i] += 13;
+				i++;
+			}
+			while ((s[i] >= 'N' && s[i] <= 'Z') || (s[i] >= 'n' && s[i] <= 'z'))
+			{
+				s[i] -= 13;
+				i++;
 			}
 		}
+		else
+			i++;
 	}
-	return (str);
+	return (s);
 }

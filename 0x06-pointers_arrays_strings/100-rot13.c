@@ -2,26 +2,31 @@
 
 /**
   * rot13 - function to encode string using rot13
-  * @a: target string
+  * @s: target string
   * Return: encoded string
   */
-char *rot13(char *a)
+char *rot13(char *s)
 {
-	char *sptr = a;
-	int index;
-	char trans[2][54] = {"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-				   "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM"};
+	int i;
 
-	while (*sptr != 0)
+	i = 0;
+	while (s[i] != 0)
 	{
-		if ((*sptr >= 'a' && *sptr <= 'z') || (*sptr >= 'A' && *sptr <= 'Z'))
+		if ((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z'))
 		{
-			index = 0;
-			while (*sptr != trans[0][index])
-				index++;
-			*sptr = trans[1][index];
+			while ((s[i] >= 'A' && s[i] < 'N') || (s[i] >= 'a' && s[i] < 'n'))
+			{
+				s[i] += 13;
+				i++;
+			}
+			while ((s[i] >= 'N' && s[i] <= 'Z') || (s[i] >= 'n' && s[i] <= 'z'))
+			{
+				s[i] -= 13;
+				i++;
+			}
 		}
-		sptr++;
+		else
+			i++;
 	}
-	return (a);
+	return (s);
 }

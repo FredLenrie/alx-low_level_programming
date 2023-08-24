@@ -2,31 +2,43 @@
 
 /**
   * rot13 - function to encode string using rot13
-  * @s: target string
+  * @str: target string
   * Return: encoded string
   */
-char *rot13(char *s)
-{
-	int i;
 
-	i = 0;
-	while (s[i] != 0)
+char *rot13(char *str)
+{
+	int index1, index2;
+
+	char alphabet[52] = {'A', 'B', 'C', 'D', 'E', 'F',
+											 'G', 'H', 'I', 'J', 'K', 'L',
+											 'M', 'N', 'O', 'P', 'Q', 'R',
+											 'S', 'T', 'U', 'V', 'W', 'X',
+											 'Y', 'Z', 'a', 'b', 'c', 'd',
+											 'e', 'f', 'g', 'h', 'i', 'j',
+											 'k', 'l', 'm', 'n', 'o', 'p',
+											 'q', 'r', 's', 't', 'u', 'v',
+											 'w', 'x', 'y', 'z'};
+
+	char rot13key[52] = {'N', 'O', 'P', 'Q', 'R', 'S',
+											 'T', 'U', 'V', 'W', 'X', 'Y',
+											 'Z', 'A', 'B', 'C', 'D', 'E',
+											 'F', 'G', 'H', 'I', 'J', 'K',
+											 'L', 'M', 'n', 'o', 'p', 'q',
+											 'r', 's', 't', 'u', 'v', 'w',
+											 'x', 'y', 'z', 'a', 'b', 'c',
+											 'd', 'e', 'f', 'g', 'h', 'i',
+											 'j', 'k', 'l', 'm'};
+	while (str[++index1])
 	{
-		if ((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z'))
+		for (index2 = 0; index2 < 52; index2++)
 		{
-			while ((s[i] >= 'A' && s[i] < 'N') || (s[i] >= 'a' && s[i] < 'n'))
+			if (str[index1] == alphabet[index2])
 			{
-				s[i] += 13;
-				i++;
-			}
-			while ((s[i] >= 'N' && s[i] <= 'Z') || (s[i] >= 'n' && s[i] <= 'z'))
-			{
-				s[i] -= 13;
-				i++;
+				str[index1] = rot13key[index2];
+				break;
 			}
 		}
-		else
-			i++;
 	}
-	return (s);
+	return (str);
 }
